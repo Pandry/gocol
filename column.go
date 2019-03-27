@@ -17,9 +17,21 @@ func main() {
 
 	if (info.Mode() & os.ModeCharDevice) == os.ModeCharDevice {
 		fmt.Println(`Usage:
-  echo "First Second Third\nMyFirstField 2ndf ThisIsTheThirdField" | column`)
+  echo "First Second Third\nMyFirstField 2ndf ThisIsTheThirdField" | gocol
+
+Usage:
+  -c string
+        The padding byte (default "\t")
+  -d string
+        The divider char (default " ")
+  -p int
+        Cell padding
+  -t int
+  		The tabulation width if c is left as default (tabulation char)
+  -w int
+        Minimum cell width`)
 	} else {
-		tabLenPtr := flag.Int("t", 8, "Tabulation length")
+		tabLenPtr := flag.Int("t", 8, "The tabulation width if c is left as default (tabulation char)")
 		minWidthPtr := flag.Int("w", 0, "Minimum cell width")
 		paddingPtr := flag.Int("p", 0, "Cell padding")
 		dividerChar := flag.String("d", " ", "The divider char")
@@ -31,8 +43,6 @@ func main() {
 
 		w := new(tabwriter.Writer)
 
-		// Format in tab-separated columns with a tab stop of 8.
-		//w.Init(os.Stdout, 0, 8, 0, '\t', 0)
 		w.Init(os.Stdout, *minWidthPtr, *tabLenPtr, *paddingPtr, byte((*paddingByte)[0]), 0)
 		for {
 			line, _, err := reader.ReadLine()

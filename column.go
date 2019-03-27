@@ -16,7 +16,8 @@ func main() {
 	}
 
 	if (info.Mode() & os.ModeCharDevice) == os.ModeCharDevice {
-		fmt.Println(`Usage:\n\techo"First Second Third\\nMyFirstField 2ndf ThisIsTheThirdField" | column`)
+		fmt.Println(`Usage:
+  echo"First Second Third\nMyFirstField 2ndf ThisIsTheThirdField" | column`)
 	} else {
 		tabLenPtr := flag.Int("t", 8, "Tabulation length")
 		minWidthPtr := flag.Int("w", 0, "Minimum cell width")
